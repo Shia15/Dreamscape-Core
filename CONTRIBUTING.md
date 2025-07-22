@@ -1,0 +1,1 @@
+# CONTRIBUTING placeholder for AETHER Interface
