@@ -83,3 +83,4 @@ Build what feels aligned.
 
 > Contributions are not just added — they are integrated.  
 > Thank you for shaping the memory of this system.
+📂 For a full symbolic directory map, see [`mari-core_structure.md`](./docs/mari-core_structure.md)
