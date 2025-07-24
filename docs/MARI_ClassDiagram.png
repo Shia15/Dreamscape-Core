@@ -1,0 +1,22 @@
+digraph MARI_ClassDiagram {
+	rankdir=LR size="10,6"
+	node [shape=record]
+	InputHandler [label="{InputHandler|+voiceInput: String\l+gestureInput: String\l+parseInput(): Intent}"]
+	Intent [label="{Intent|+type: String\l+content: String\l+confidence: Float}"]
+	Controller [label="{Controller|+route(intent: Intent)\l+manageTiming()\l+logActivity()}"]
+	CLU [label="{CognitiveLogicUnit|+process(intent: Intent)\l+decideAction(): Response}"]
+	MemoryEngine [label="{MemoryEngine|+shortTerm: List\l+longTerm: Dict\l+retrieve(): Context\l+store()}"]
+	EmotionSystem [label="{EmotionSystem|+moodState: String\l+evaluate(context: Context): Mood}"]
+	Response [label="{Response|+text: String\l+priority: Int\l+emotionTag: String}"]
+	Context [label="{Context|+topic: String\l+history: List}"]
+	InterfaceRenderer [label="{InterfaceRenderer|+renderText(response: String)\l+playAudio(file: String)}"]
+	InputHandler -> Intent [label=creates]
+	Controller -> Intent [label=routes]
+	Controller -> CLU
+	CLU -> MemoryEngine [label=queries]
+	CLU -> EmotionSystem [label="routes to"]
+	CLU -> Response [label=generates]
+	MemoryEngine -> Context [label=returns]
+	EmotionSystem -> Response [label=influences]
+	Response -> InterfaceRenderer [label=renders]
+}
