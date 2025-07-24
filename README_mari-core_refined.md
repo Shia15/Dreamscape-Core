@@ -86,8 +86,17 @@ This repo integrates directly with:
 - [`aether-core`](https://github.com/your-org/aether-core) — Primary orchestration and inference logic  
 - [`aether-frontend`](https://github.com/your-org/aether-frontend) — React/Tailwind interface system  
 
+<<<<<<< HEAD
+=======
+📘 See [Agent Mapping](./docs/Agent_Mapping.md) for emotional and functional breakdown of the system’s core archetypes.
+
+>>>>>>> 3fb379f35022da10680a415a0dae326bc5d64b35
 Designed for emotionally intelligent, symbolic AI interfaces that engage with depth and meaning.
 
 ---
 
+<<<<<<< HEAD
 > “We are building interfaces that feel, not just respond.”
+=======
+> “We are building interfaces that feel, not just respond.”
+>>>>>>> 3fb379f35022da10680a415a0dae326bc5d64b35
