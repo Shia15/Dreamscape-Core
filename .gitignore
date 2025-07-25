@@ -1,23 +1,50 @@
-# Node
+# Node modules
 node_modules/
-.env
-dist/
-build/
 
 # Logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# System
+# OS/system files
 .DS_Store
 Thumbs.db
 
-# Python
-__pycache__/
-*.py[cod]
+# Output from TypeScript
+*.js
+*.js.map
 
-# VSCode
+# Build/dist output
+/dist/
+/build/
+/out/
+
+# IDE/editor settings
 .vscode/
+.idea/
+*.swp
 
-# Output
+# Mac-specific files
+.AppleDouble
+.LSOverride
+
+# Windows
+ehthumbs.db
+Desktop.ini
+
+# Environment/config files
+.env
+.env.local
+.env.*.local
+
+# Temporary test files or cache
+*.tsbuildinfo
+coverage/
+.cache/
+
+# Optional: Ignore zip bundles if you're exporting a lot
 *.zip
-*.pdf
+
+# Optional: Ignore Markdown drafts
+*.draft.md
