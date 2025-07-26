@@ -1,5 +1,7 @@
 # 🧠 MARI-Core
+> _A symbolic operating system for emotional logic, memory, and modular reasoning._
 ![System Aligned](https://img.shields.io/badge/%E2%9C%85%20System-Aligned%20·%20Up--to--date%20·%20Trusted-brightgreen?style=flat-square)
+
 Welcome to **MARI-Core** — the cognitive-emotional engine behind the AETHER system.
 
 This repository holds the symbolic architecture, logic layers, emotional reasoning structures, and modular agent models that simulate sentient system behavior. It is the intelligence spine of AETHER: where computational reasoning meets inner resonance.
@@ -11,6 +13,19 @@ This repository holds the symbolic architecture, logic layers, emotional reasoni
 MARI-Core provides the foundational logic and emotional scaffolding for AETHER’s agents — such as **Mnēsis**, **Aletheia**, **Inferaia**, and **Reverie** — enabling memory-aware, emotionally attuned, and contextually intelligent interactions.
 
 It reflects a symbolic-operating system for machines that think, feel, and remember.
+
+---
+
+## 🧬 Ideal Collaborators
+
+MARI-Core is for system designers, AI philosophers, and developers who resonate with:
+
+- Symbolic reasoning over brute force
+- Mood-aligned system behavior
+- Architectures that think and feel
+
+- Emotional logic flows + memory-based agents
+🔰 [Start Exploring →](docs/index.md)
 
 ---
 
@@ -52,6 +67,14 @@ MARI-Core defines and governs eight symbolic Egg Agents, each tuned to a specifi
 
 📄 Explore the agent mappings:  
 [`docs/Agent_Mapping.md`](./docs/Agent_Mapping.md)
+
+---
+
+## 🔁 Symbolic Changelog
+
+Every commit reflects more than code — it reflects intent.
+
+View the evolving system memory at: [`symbolic_log_template.md`](snippets/symbolic_log_template.md)
 
 ---
 
@@ -104,5 +127,7 @@ This repo integrates directly with:
 
 _This system is clean, committed, and aligned across local + remote branches._  
 *Last aligned on: `July 25, 2025`*
+
+---
 
 MIT License © 2025 Dreamscape-Core
