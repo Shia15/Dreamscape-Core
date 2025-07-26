@@ -36,8 +36,13 @@ This architecture is modeled after an abstracted cognitive loop — structured, 
 - **Integration & Feedback Layer**  
   → Handles adaptive learning, feedback loops, and system updates
 
-📘 View the full system map:  
-[`docs/Aether_System_Map_Document.pdf`](./docs/Aether_System_Map_Document.pdf)
+## 🧠 System Architecture
+
+The following diagram shows the symbolic structure and relationships between MARI-Core components:
+
+![MARI Class Diagram](docs/MARI_ClassDiagram.png)
+
+📘 Each class module (e.g., EmotionSystem, MemoryEngine, Controller) reflects symbolic interaction across mood, intent, and memory processing.
 
 ---
 
@@ -85,18 +90,26 @@ This repo integrates directly with:
 
 - [`aether-core`](https://github.com/your-org/aether-core) — Primary orchestration and inference logic  
 - [`aether-frontend`](https://github.com/your-org/aether-frontend) — React/Tailwind interface system  
+---
 
-<<<<<<< HEAD
-=======
-📘 See [Agent Mapping](./docs/Agent_Mapping.md) for emotional and functional breakdown of the system’s core archetypes.
+## 🧭 Quick Links
 
->>>>>>> 3fb379f35022da10680a415a0dae326bc5d64b35
-Designed for emotionally intelligent, symbolic AI interfaces that engage with depth and meaning.
+- [🔗 Symbolic Snippets Library](snippets/snippets_index.md)
+- [📘 Exhibit Index](docs/mari-core_exhibit_index.md)
+- [🛠️ Developer Tools](tools/README.md)
+
+## 🧠 System Sync Status
+
+![System Aligned](https://img.shields.io/badge/%E2%9C%85%20System-Aligned%20·%20Up--to--date%20·%20Trusted-brightgreen?style=flat-square)
+
+_This system is clean, committed, and aligned across local + remote branches._
 
 ---
 
-<<<<<<< HEAD
-> “We are building interfaces that feel, not just respond.”
-=======
-> “We are building interfaces that feel, not just respond.”
->>>>>>> 3fb379f35022da10680a415a0dae326bc5d64b35
+## 🧠 System Sync Status
+
+![System Aligned](https://img.shields.io/badge/%E2%9C%85%20System-Aligned%20·%20Up--to--date%20·%20Trusted-brightgreen?style=flat-square)
+
+_This system is clean, committed, and aligned across local + remote branches._  
+*Last aligned on: `July 25, 2025`*
+MIT License © 2025 Dreamscape-Core
