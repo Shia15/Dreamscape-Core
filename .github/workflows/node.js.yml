@@ -42,8 +42,4 @@ jobs:
           config-file: .markdown-link-check.json
           folder-path: .
           file-extension: .md
-<<<<<<< HEAD
           use-quiet-mode: "yes"
-=======
-          use-quiet-mode: "yes"
->>>>>>> b728832 (ci: commit local changes to resolve rebase lock)
