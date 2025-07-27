@@ -6,18 +6,21 @@ This document outlines the structural backbone of AETHER's cognitive-emotional s
 
 ## 📐 Class Relationships
 
-The system is built on a symbolic object-oriented architecture.  
-Each class represents a cognitive or emotional structure in the M.A.R.I. stack.
+- See: Class Diagram (PDF)
+- See: Input to Output Sequence (PDF)
 
-📄 See: [Class Diagram (PDF)](./mari_class_diagram.pdf)
++ See: [Class Diagram (PDF)](../mari_class_diagram.pdf)
++ See: [Input to Output Sequence (PDF)](./AETHER_Input_to_Output_Flow.pdf)
 
 ---
 
+
 ## 🔄 Interaction Sequence
 
-User input flows through a dynamic, rule-based pipeline that reflects decision logic, memory recall, and emotional modulation.
-
-📄 See: [Input to Output Sequence (PDF)](./mari_sequence_diagram.pdf)
+User input flows through a dynamic, rule-based pipeline that reflects decision logic, memory recall, and emotional modulation.    
+    [View Interaction Sequence Diagram](graphviz.svg)
+    
+ ![Interaction Sequence](graphviz.svg)
 
 ---
 
@@ -36,8 +39,6 @@ User input flows through a dynamic, rule-based pipeline that reflects decision l
 ---
 
 ## 📊 Visual Companion
-
-Use the [Emotion Interaction Flow (PNG)](./Emotion_Interaction_Flow.png) for a clean visual summary.
 
 For full symbolic walkthrough, read the  
 [Runtime Architecture Documentation](./Runtime_Architecture.md)
