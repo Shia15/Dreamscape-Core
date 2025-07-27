@@ -42,7 +42,4 @@ jobs:
           config-file: .markdown-link-check.json
           folder-path: .
           file-extension: .md
-          ignore-files: |
-            CHANGELOG.md
-            docs/archive/
           use-quiet-mode: "yes"
