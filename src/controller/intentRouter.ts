@@ -1,9 +1,9 @@
 
 // intentRouter.ts – Routes input based on dominant mood signal 🧭
 
-import { evaluateMood } from "./emotion/moodLogic"
-import { Mood } from "./emotion/moodTypes"
-import { agentRegistry } from "./agents"
+import { evaluateMood } from "../emotion/moodLogic"
+import { Mood } from "../emotion/moodTypes"
+import { agentRegistry } from "../agents"
 
 /**
  * Routes symbolic input to the correct agent using mood logic.

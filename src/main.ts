@@ -3,6 +3,7 @@
 import { processInput } from "./controller/controller"
 import { remember, recallLast } from "./memory/memoryStore"
 import { Mood } from "./emotion/moodTypes"
+import readline from "readline"
 
 /**
  * Middleware placeholder – enrich input, log flow, or preprocess
@@ -27,13 +28,18 @@ function runFlow(input: string, moodHints: Partial<Record<Mood, number>> = {}) {
 
   // Log the output
   console.log("🌀 System Response:", response)
-
-  // Optional: recall memory
   console.log("🔁 Recent Memory:", recallLast())
+  console.log("🕰️ Timestamp:", new Date().toLocaleString())
 }
 
 /**
- * Example Calls – can be replaced with real UI, CLI, or voice interface
+ * Command Line Interface (CLI)
+ * Allows live symbolic input via terminal
  */
-runFlow("I need to understand what I'm feeling", { awe: 0.7, clarity: 0.5 })
-runFlow("Remind me what matters", { resonance: 0.8, stillness: 0.4 })
+const rl = readline.createInterface({ input: process.stdin, output: process.stdout })
+
+rl.question("✨ Ask AETHER: ", (userInput) => {
+  runFlow(userInput, { curiosity: 0.6, openness: 0.4 }) // Adjust mood hints as desired
+  rl.close()
+})
+// Export for testing or further integration next
