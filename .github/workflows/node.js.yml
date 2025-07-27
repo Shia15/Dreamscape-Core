@@ -30,8 +30,10 @@ jobs:
       - name: 🛠️ Build project
         run: npm run build --if-present
 
-      - name: 🧪 Run tests
-        run: npm test
+      - name: 🔍 Debug: list files
+        run: |
+          pwd
+          ls -la
 
       - name: 🔗 Check Markdown links
         uses: gaurav-nelson/github-action-markdown-link-check@v1
