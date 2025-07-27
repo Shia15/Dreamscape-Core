@@ -18,10 +18,17 @@ jobs:
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
 
-      - name: 🔍 Debug: list files
+      - name: 🔍 Debug: check for package-lock.json
         run: |
           pwd
           ls -la
+          test -f package-lock.json && echo "✅ Lock file found" || echo "❌ Lock file missing"
+
+      - name: 🧰 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
 
       - name: 📦 Install dependencies
         run: npm ci
