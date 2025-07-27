@@ -23,8 +23,7 @@ Welcome to the MARI-Core documentation hub — a symbolic map of logic, emotion,
 
 The diagram below shows symbolic class relationships across memory, emotion, and control layers.
 
-![MARI Class Diagram](./MARI_ClassDiagram.png)
-
++ See: [Class Diagram (PDF)](../mari_class_diagram.pdf)
 🔧 Source: [`MARI_ClassDiagram_source.dot`](./MARI_ClassDiagram_source.dot)
 
 ---
@@ -33,15 +32,26 @@ The diagram below shows symbolic class relationships across memory, emotion, and
 
 - [Emotion Interaction Flow](Emotion_Interaction_Flow.png)  
 - [Input to Output Flow](AETHER_Input_to_Output_Flow.pdf)  
-- [Sequence Diagram](mari_sequence_diagram.pdf)
+- [Sequence Diagram](./MARI_FlowDiagram.png)
 
 ---
 
-## 🌌 Part of the AETHER System
+## 🌌 AETHER System Modules |  Runtime Ecosystem
 
-- [`mari-core`](../README.md) – Emotional logic & symbolic agents  
-- [`aether-core`](https://github.com/your-org/aether-core) – Runtime orchestration  
-- [`aether-frontend`](https://github.com/your-org/aether-frontend) – Visual interface system  
+- 🧠 [MARI-Core](https://github.com/Dreamscape-Core/mari-core)  
+  Cognitive-emotional reasoning engine and symbolic logic system
+
+- 🔧 [AETHER-Core](https://github.com/Dreamscape-Core/aether-core)  
+  Runtime orchestration and agent-to-agent interaction routing
+
+- 🖼️ [AETHER-Frontend](https://github.com/Dreamscape-Core/aether-frontend)  
+  Visual interface system for prompt construction, mood mapping, and symbolic flow display
+
+- 📡 [AETHER-Backend](https://github.com/Dreamscape-Core/Backend)  
+  Secure memory retrieval, user session orchestration, and long-term data persistence (WIP)
+
+- 🧬 AETHER-Research *(coming soon)*  
+  Symbolic prompt optimization, agent tuning experiments, and mood logic evolution
 
 ---
 
