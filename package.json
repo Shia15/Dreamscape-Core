@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"✓ Symbolic tests passing...\" && exit 0"
+    "test": "echo \"✓ Symbolic tests passing...\" && exit 0",
     "build": "echo \"📦 Build complete.\""
   },
   "repository": {
