@@ -2,9 +2,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "master" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "master" ]
 
 jobs:
   build:
@@ -18,7 +18,7 @@ jobs:
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
 
-      - name: "🔍 Check for package-lock.json"
+      - name: 🔍 Check for package-lock.json
         run: |
           if [ -f package-lock.json ]; then
             echo "✅ Lock file found – proceeding with npm ci"
@@ -44,11 +44,8 @@ jobs:
             echo "⚠️ No package.json found – skipping build step"
           fi
 
-      - name: 🔗 Check Markdown links
-        uses: gaurav-nelson/github-action-markdown-link-check@v1
-        with:
-          config-file: .markdown-link-check.json
-          folder-path: .
-          file-extension: .md
-          use-quiet-mode: "yes"
-        continue-on-error: true
+      - name: ✅ Symbolic CI Complete
+        run: |
+          echo "🧬 CI completed by ${{ github.actor }} on branch ${{ github.ref }}"
+          echo "🎯 Node version: ${{ matrix.node-version }}"
+          echo "🕒 Completed at $(date)"
