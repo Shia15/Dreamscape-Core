@@ -1,6 +1,7 @@
+
 # 📚 AETHER MARI-Core Docs Index
 
-[![System Aligned](https://img.shields.io/badge/System-Aligned-2E7D32?style=for-the-badge&labelColor=1B1B1B&logo=semantic-release&logoColor=white)](https://shields.io)
+- [[System Aligned](https://img.shields.io/badge/System-Aligned-2E7D32?style=for-the-badge&labelColor=1B1B1B&logo=semantic-release&logoColor=white)](https://shields.io)
 
 Welcome to the MARI-Core documentation hub — a symbolic map of logic, emotion, and agent cognition.
 
