@@ -42,12 +42,6 @@ Use these badges in your README.md, docs, or onboarding visuals to communicate A
 
 ---
 
-### 🗼 Cleanup Instructions
-
-
-
----
-
 ### 📄 License
 
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](./LICENSE)

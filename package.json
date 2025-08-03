@@ -4,7 +4,7 @@
   "description": "Welcome to **MARI-Core** — the cognitive-emotional engine behind the AETHER system.",
   "main": "index.js",
   "directories": {
-    "doc": "docs"
+  "doc": "docs"
   },
   "scripts": {
     "test": "echo \"✓ Symbolic tests passing...\" && exit 0",
@@ -20,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/Dreamscape-Core/mari-core/issues"
   },
-  "homepage": "https://github.com/Dreamscape-Core/mari-core#readme"
+  "homepage": "https://github.com/Dreamscape-Core/mari-core#readme",
+  "devDependencies": {
+    "@types/node": "^24.1.0",
+    "typescript": "^5.9.2"
+  }
 }
