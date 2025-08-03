@@ -1,6 +1,6 @@
 # 🧳 MARI-Core Exhibit Archive
 
-- [[System In Progress](https://img.shields.io/badge/System-In--Progress-F9A825?style=for-the-badge&labelColor=1B1B1B&logo=OpenAI&logoColor=white)](https://github.com/Dreamscape-Core/mari-core)
+[![System In Progress](https://img.shields.io/badge/Status--In--Progress-F9AB25?style=for-the-badge&labelColor=1B1B1B&logo=OpenAI&logoColor=white)](https://github.com/Dreamscape-Core/mari-core)
 
 Welcome to the **Symbolic Archive** — a curated snapshot of the living system behind MARI-Core.  
 Each section is a functional chamber of the architecture: ritualized in flow, layered in intention, and alive in symbolic clarity.
@@ -112,7 +112,8 @@ snippets/
 
 ## 🧩 Interface Layer Map (Figma · Git Mirror)
  
-- [[View in Figma](https://img.shields.io/badge/Figma-System--Map-purple?style=flat-square&logo=figma&logoColor=white)](https://www.figma.com/design/1w8FKr6HnwX24MaMX0CiZ9/AETHER-Control-Panel?node-id=0-1&p=f&t=Hfux1O2IED8WlEAf-0) 
+[![Figma – AETHER Control Panel](https://img.shields.io/badge/Figma-Prototype-FF7262?style=for-the-badge&labelColor=1B1B1B&logo=Figma&logoColor=white)](https://www.figma.com/proto/1w8FKr6HnwX24MaMX0CiZ9/AETHER-Control-Panel?node-id=0-1)
+
 Shared source for interface layers, symbolic flows, and Pages 00–26* (In Progress)
 
 > The visual embodiment of MARI’s symbolic logic — blueprints in Pages 00–26
@@ -130,16 +131,9 @@ Shared source for interface layers, symbolic flows, and Pages 00–26* (In Progr
 
 ---
 
-This archive represents a symbolic moment in time —  
+This archive represents a symbolic moment in time -  
 a resonance between friction, clarity, and purpose within the emotional logic engine of the AETHER system.  
-
-Each placeholder here is a ritual waiting for activation.  
-Each file: an artifact.  
-Each badge: a breath.
 
 ---
 
 © 2025 Dreamscape-Core · Licensed under the ISC License.  
-You are free to remix, expand, or align | so long as credit breathes and intent remains clear.
-
-This archive holds no guarantees, only resonance.
