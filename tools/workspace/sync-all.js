@@ -1,26 +1,13 @@
-#!/usr/bin/env node
+const path = require("path");
+const { loadConfig, run } = require("./_ws");
 
-/**
- * 🔄 Sync All AETHER Repositories
- * Pulls latest changes from origin for all repositories
- */
+const root = process.cwd();
+const cfg = loadConfig(root);
 
-const AetherWorkspace = require('./AetherWorkspace');
-
-async function syncAll() {
-  const workspace = new AetherWorkspace();
-  
-  console.log('🔄 Syncing AETHER Workspace');
-  console.log('===========================');
-  console.log('');
-
-  for (const repoName of Object.keys(workspace.config.repositories)) {
-    await workspace.syncRepository(repoName);
-  }
-
-  workspace.success('All repositories synced!');
-  console.log('');
-  console.log('Tip: Run "npm run workspace:status-all" to see the current state.');
+for (const r of cfg.repos) {
+  const repoPath = path.resolve(root, r.path);
+  console.log(`🔄 Sync ${r.name}`);
+  run("git fetch --all", repoPath);
+  run("git pull", repoPath);
 }
-
-syncAll().catch(console.error);
+console.log("✨ sync-all complete");

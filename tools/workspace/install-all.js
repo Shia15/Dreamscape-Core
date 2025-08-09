@@ -1,24 +1,18 @@
-#!/usr/bin/env node
+const fs = require("fs");
+const path = require("path");
+const { loadConfig, run, topoOrder } = require("./_ws");
 
-/**
- * 📦 Install Dependencies for All AETHER Repositories
- * Installs npm dependencies for all repositories in the workspace
- */
+const root = process.cwd();
+const cfg = loadConfig(root);
 
-const AetherWorkspace = require('./AetherWorkspace');
-
-async function installAll() {
-  const workspace = new AetherWorkspace();
-  
-  console.log('📦 Installing Dependencies for AETHER Workspace');
-  console.log('===============================================');
-  console.log('');
-
-  for (const repoName of Object.keys(workspace.config.repositories)) {
-    await workspace.installDependencies(repoName);
+for (const r of topoOrder(cfg.repos)) {
+  const repoPath = path.resolve(root, r.path);
+  const pkg = path.join(repoPath, "package.json");
+  if (fs.existsSync(pkg)) {
+    console.log(`📦 Install deps for ${r.name}`);
+    run("npm ci || npm install", repoPath);
+  } else {
+    console.log(`⏭️  Skip ${r.name} (no package.json)`);
   }
-
-  workspace.success('Dependencies installed for all repositories!');
 }
-
-installAll().catch(console.error);
+console.log("✨ install-all complete");

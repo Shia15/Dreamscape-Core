@@ -1,76 +1,44 @@
-#!/usr/bin/env node
+const fs = require("fs");
+const path = require("path");
+const { loadConfig } = require("./_ws");
+const { execSync } = require("child_process");
 
-/**
- * 📊 Check Status of All AETHER Repositories
- * Shows the current status of all repositories in the workspace
- */
+const root = process.cwd();
+const cfg = loadConfig(root);
 
-const AetherWorkspace = require('./AetherWorkspace');
+console.log("\n🧠 AETHER Workspace Status");
+console.log("==========================");
+console.log("Workspace: AETHER Ecosystem");
+console.log(`Root: ${path.relative(process.cwd(), root) || "."}\n`);
 
-async function statusAll() {
-  const workspace = new AetherWorkspace();
-  
-  console.log('📊 AETHER Workspace Status');
-  console.log('==========================');
-  console.log(`Workspace: ${workspace.config.name}`);
-  console.log(`Root: ${workspace.config.workspaceRoot}`);
-  console.log('');
+console.log("Repository Status:\n");
 
-  const statuses = [];
-  
-  for (const repoName of Object.keys(workspace.config.repositories)) {
-    const repo = workspace.config.repositories[repoName];
-    const status = await workspace.getRepositoryStatus(repoName);
-    
-    statuses.push({
-      name: repoName,
-      type: repo.type,
-      exists: status.exists,
-      branch: status.branch || 'N/A',
-      status: status.status,
-      hasChanges: status.hasChanges
-    });
-  }
-
-  // Display status table
-  console.log('Repository Status:');
-  console.log('┌─────────────────┬─────────────┬────────────────┬───────────────────┬─────────────┐');
-  console.log('│ Repository      │ Type        │ Status         │ Branch            │ Changes     │');
-  console.log('├─────────────────┼─────────────┼────────────────┼───────────────────┼─────────────┤');
-  
-  statuses.forEach(repo => {
-    const name = repo.name.padEnd(15);
-    const type = repo.type.padEnd(11);
-    const status = repo.status.padEnd(14);
-    const branch = (repo.branch || 'N/A').padEnd(17);
-    const changes = repo.hasChanges ? 'Yes' : 'No';
-    const changesStr = changes.padEnd(11);
-    
-    console.log(`│ ${name} │ ${type} │ ${status} │ ${branch} │ ${changesStr} │`);
-  });
-  
-  console.log('└─────────────────┴─────────────┴────────────────┴───────────────────┴─────────────┘');
-  console.log('');
-
-  // Summary
-  const totalRepos = statuses.length;
-  const clonedRepos = statuses.filter(s => s.exists).length;
-  const reposWithChanges = statuses.filter(s => s.hasChanges).length;
-  
-  console.log('Summary:');
-  console.log(`  Total repositories: ${totalRepos}`);
-  console.log(`  Cloned: ${clonedRepos}/${totalRepos}`);
-  console.log(`  With changes: ${reposWithChanges}`);
-  
-  if (clonedRepos < totalRepos) {
-    console.log('');
-    workspace.log('Some repositories are not cloned. Run: npm run workspace:clone-all', '💡');
-  }
-  
-  if (reposWithChanges > 0) {
-    console.log('');
-    workspace.log('Some repositories have uncommitted changes.', '⚠️');
+function hasChanges(repoPath) {
+  try {
+    const out = execSync("git status -s", { cwd: repoPath }).toString().trim();
+    return out.length > 0 ? "Yes" : "No";
+  } catch {
+    return "Unknown";
   }
 }
 
-statusAll().catch(console.error);
+const col = (s, n) => (s || "").toString().padEnd(n);
+
+console.log(`${col("Repository", 20)}| ${col("State", 12)}| ${col("Branch", 12)}| Changes`);
+console.log(`${"-".repeat(20)}|${"-".repeat(13)}|${"-".repeat(13)}|--------`);
+
+for (const r of cfg.repos) {
+  const repoPath = path.resolve(root, r.path);
+  const cloned = fs.existsSync(path.join(repoPath, ".git"));
+  const state = cloned ? "Cloned" : "Not Cloned";
+  let branch = "N/A", changes = "No";
+  if (cloned) {
+    try { branch = execSync("git rev-parse --abbrev-ref HEAD", { cwd: repoPath }).toString().trim(); } catch {}
+    changes = hasChanges(repoPath);
+  }
+  console.log(`${col(r.name, 20)}| ${col(state, 12)}| ${col(branch, 12)}| ${changes}`);
+}
+
+console.log("\n⚑ Notes:");
+console.log("• Clone missing repos: npm run workspace:clone-all");
+console.log("• Install deps:        npm run workspace:install-all\n");

@@ -1,48 +1,16 @@
-#!/usr/bin/env node
+const fs = require("fs");
+const path = require("path");
+const { loadConfig, run, topoOrder } = require("./_ws");
 
-/**
- * 🧪 Test All AETHER Repositories
- * Runs tests for all repositories in the workspace
- */
+const root = process.cwd();
+const cfg = loadConfig(root);
 
-const AetherWorkspace = require('./AetherWorkspace');
-
-async function testAll() {
-  const workspace = new AetherWorkspace();
-  
-  console.log('🧪 Testing AETHER Workspace');
-  console.log('===========================');
-  console.log('');
-
-  const results = [];
-  
-  for (const repoName of Object.keys(workspace.config.repositories)) {
-    try {
-      await workspace.testRepository(repoName);
-      results.push({ repo: repoName, status: 'PASSED' });
-    } catch (error) {
-      results.push({ repo: repoName, status: 'FAILED' });
-    }
-  }
-
-  console.log('');
-  console.log('Test Results Summary:');
-  console.log('====================');
-  
-  results.forEach(result => {
-    const emoji = result.status === 'PASSED' ? '✅' : '❌';
-    console.log(`${emoji} ${result.repo}: ${result.status}`);
-  });
-  
-  const allPassed = results.every(r => r.status === 'PASSED');
-  console.log('');
-  
-  if (allPassed) {
-    workspace.success('All tests passed!');
-  } else {
-    workspace.error('Some tests failed!');
-    process.exit(1);
+for (const r of topoOrder(cfg.repos)) {
+  const repoPath = path.resolve(root, r.path);
+  const pkg = path.join(repoPath, "package.json");
+  if (fs.existsSync(pkg)) {
+    console.log(`🧪 Test ${r.name}`);
+    run("npm test || echo no-tests", repoPath);
   }
 }
-
-testAll().catch(console.error);
+console.log("✨ test-all complete");

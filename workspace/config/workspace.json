@@ -1,0 +1,27 @@
+{
+  "repos": [
+    {
+      "name": "mari-core",
+      "url": "git@github.com:Dreamscape-Core/mari-core.git",
+      "path": ".",
+      "dependsOn": []
+    },
+    {
+      "name": "aether-core",
+      "url": "git@github.com:Dreamscape-Core/aether-core.git",
+      "path": "../aether-core",
+      "dependsOn": [
+        "mari-core"
+      ]
+    },
+    {
+      "name": "aether-frontend",
+      "url": "git@github.com:Dreamscape-Core/aether-frontend.git",
+      "path": "../aether-frontend",
+      "dependsOn": [
+        "mari-core",
+        "aether-core"
+      ]
+    }
+  ]
+}

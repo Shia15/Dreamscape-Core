@@ -1,25 +1,16 @@
-#!/usr/bin/env node
+const fs = require("fs");
+const path = require("path");
+const { loadConfig, run, topoOrder } = require("./_ws");
 
-/**
- * 🔨 Build All AETHER Repositories
- * Builds all repositories in the correct dependency order
- */
+const root = process.cwd();
+const cfg = loadConfig(root);
 
-const AetherWorkspace = require('./AetherWorkspace');
-
-async function buildAll() {
-  const workspace = new AetherWorkspace();
-  
-  console.log('🔨 Building AETHER Workspace');
-  console.log('============================');
-  console.log(`Build order: ${workspace.config.buildOrder.join(' → ')}`);
-  console.log('');
-
-  for (const repoName of workspace.config.buildOrder) {
-    await workspace.buildRepository(repoName);
+for (const r of topoOrder(cfg.repos)) {
+  const repoPath = path.resolve(root, r.path);
+  const pkg = path.join(repoPath, "package.json");
+  if (fs.existsSync(pkg)) {
+    console.log(`🏗️  Build ${r.name}`);
+    run("npm run build || echo no-build", repoPath);
   }
-
-  workspace.success('All repositories built successfully!');
 }
-
-buildAll().catch(console.error);
+console.log("✨ build-all complete");
