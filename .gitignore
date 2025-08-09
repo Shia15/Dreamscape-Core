@@ -14,6 +14,8 @@ Thumbs.db
 # Output from TypeScript
 *.js
 *.js.map
+# But keep workspace tools
+!tools/workspace/*.js
 
 # Build/dist output
 /dist/
@@ -48,3 +50,7 @@ coverage/
 
 # Optional: Ignore Markdown drafts
 *.draft.md
+
+# Workspace temporary files
+/tmp/
+.tmp/
