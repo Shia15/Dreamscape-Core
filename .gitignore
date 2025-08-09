@@ -48,3 +48,7 @@ coverage/
 
 # Optional: Ignore Markdown drafts
 *.draft.md
+
+# Workspace temporary files
+/tmp/
+.tmp/

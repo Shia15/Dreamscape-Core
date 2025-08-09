@@ -103,6 +103,26 @@ This repo integrates directly with:
 - [`aether-core`](https://github.com/your-org/aether-core) — Primary orchestration + inference logic  
 - [`aether-frontend`](https://github.com/your-org/aether-frontend) — React/Tailwind interface system  
 
+### 🌐 Multi-Repository Workspace
+
+MARI-Core includes comprehensive tooling for managing the entire AETHER ecosystem as a coordinated workspace:
+
+```bash
+# Setup entire AETHER workspace
+npm run aether:setup
+
+# Check workspace health  
+npm run aether:health
+
+# Build all projects in dependency order
+npm run aether:build
+
+# Test entire ecosystem
+npm run aether:test
+```
+
+See [`tools/workspace/README.md`](tools/workspace/README.md) for complete workspace documentation.
+
 ---
 
 ## 🧭 Quick Links
