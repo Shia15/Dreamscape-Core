@@ -1,0 +1,37 @@
+{
+  "language": "en",
+  "style": {
+    "tone": "poetic-precise",
+    "namingConventions": [
+      "Prefer clear verbs for orchestration: cloneAll, buildAll, testAll, deployAll, statusAll, syncAll",
+      "Use AETHER metaphors where helpful: Mnesis(memory), Aletheia(truth), Inferaia(process), Reverie(imagination)"
+    ],
+    "comments": "Explain intent before mechanics. Keep comments concise but meaningful."
+  },
+  "codingGuidelines": {
+    "nonDestructiveDefaults": true,
+    "crossPlatform": true,
+    "errorHandling": "Always print actionable next steps; do not swallow errors.",
+    "extensibility": "Design for easy addition of new repos via /config/workspace.json."
+  },
+  "commitCulture": {
+    "enabled": true,
+    "examples": [
+      "🌿 Mnēsis awakens — memory sync complete",
+      "🜁 Aletheia clarifies — dependency graph stabilized",
+      "🔥 Inferaia refines — build pipeline tempered",
+      "💠 Reverie informs — templates scaffolded with intention"
+    ]
+  },
+  "repoContext": {
+    "primaryModules": ["AetherWorkspace.js", "scripts/*", "config/workspace.json"],
+    "entryCommands": [
+      "npm run aether:setup",
+      "npm run aether:build",
+      "npm run aether:test",
+      "npm run aether:sync",
+      "npm run aether:status",
+      "npm run aether:deploy"
+    ]
+  }
+}

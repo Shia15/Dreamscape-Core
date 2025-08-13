@@ -1,0 +1,1 @@
+npm set-script tokens "node scripts/sync-tokens.js"
