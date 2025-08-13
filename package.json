@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "workspaces": [
+    "mari-core",
+    "aether-frontend",
+    "aether-core"
+  ]
+}
