@@ -4,9 +4,10 @@ const { loadConfig, run } = require("./_ws");
 const root = process.cwd();
 const cfg = loadConfig(root);
 
-for (const r of Object.values(cfg.repositories)) {
+for (const [repoKey, r] of Object.entries(cfg.repositories)) {
+  const name = r.name || repoKey;
   const repoPath = path.resolve(root, r.path);
-  console.log(`🔄 Sync ${r.name}`);
+  console.log(`🔄 Sync ${name}`);
   run("git fetch --all", repoPath);
   run("git pull", repoPath);
 }

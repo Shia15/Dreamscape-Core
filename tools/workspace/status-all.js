@@ -27,7 +27,8 @@ const col = (s, n) => (s || "").toString().padEnd(n);
 console.log(`${col("Repository", 20)}| ${col("State", 12)}| ${col("Branch", 12)}| Changes`);
 console.log(`${"-".repeat(20)}|${"-".repeat(13)}|${"-".repeat(13)}|--------`);
 
-for (const r of Object.values(cfg.repositories)) {
+for (const [repoKey, r] of Object.entries(cfg.repositories)) {
+  const name = r.name || repoKey;
   const repoPath = path.resolve(root, r.path);
   const cloned = fs.existsSync(path.join(repoPath, ".git"));
   const state = cloned ? "Cloned" : "Not Cloned";
@@ -36,7 +37,7 @@ for (const r of Object.values(cfg.repositories)) {
     try { branch = execSync("git rev-parse --abbrev-ref HEAD", { cwd: repoPath }).toString().trim(); } catch {}
     changes = hasChanges(repoPath);
   }
-  console.log(`${col(r.name, 20)}| ${col(state, 12)}| ${col(branch, 12)}| ${changes}`);
+  console.log(`${col(name, 20)}| ${col(state, 12)}| ${col(branch, 12)}| ${changes}`);
 }
 
 console.log("\n⚑ Notes:");

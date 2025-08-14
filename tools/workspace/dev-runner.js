@@ -24,7 +24,8 @@ if (!fs.existsSync(cfgPath)) {
 const cfg = JSON.parse(fs.readFileSync(cfgPath, "utf8"));
 
 const commands = [];
-for (const r of Object.values(cfg.repositories)) {
+for (const [repoKey, r] of Object.entries(cfg.repositories)) {
+  const name = r.name || repoKey;
   const repoPath = path.resolve(root, r.path);
   const pkgPath = path.join(repoPath, "package.json");
   if (!fs.existsSync(pkgPath)) continue;

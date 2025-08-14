@@ -7,14 +7,15 @@ const root = process.cwd();
 const cfg = loadConfig(root);
 let ok = true;
 
-for (const r of Object.values(cfg.repositories)) {
+for (const [repoKey, r] of Object.entries(cfg.repositories)) {
+  const name = r.name || repoKey;
   const repoPath = path.resolve(root, r.path);
   const hasGit = fs.existsSync(path.join(repoPath, ".git"));
   if (!hasGit) {
     ok = false;
-    console.log(`❗ ${r.name}: not cloned (${repoPath})`);
+    console.log(`❗ ${name}: not cloned (${repoPath})`);
   } else {
-    console.log(`✅ ${r.name}: present`);
+    console.log(`✅ ${name}: present`);
   }
 }
 
