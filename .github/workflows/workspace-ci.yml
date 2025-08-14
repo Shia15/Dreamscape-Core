@@ -25,16 +25,18 @@ jobs:
 
       - name: 🌱 Clone all repos
         run: npm run workspace:clone-all
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 📦 Install all repo deps
         run: npm run workspace:install-all
 
       - name: 🏗 Build all
-        run: npm run aether:build
+        run: npm run workspace:build-all
         env:
           AETHER_SKIP_TOKEN_SYNC: "1" # skip token sync so frontend builds cleanly
 
       - name: 🧪 Test all
-        run: npm run aether:test
+        run: npm run workspace:test-all
         env:
           AETHER_SKIP_TOKEN_SYNC: "1"
