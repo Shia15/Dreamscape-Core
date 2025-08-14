@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 
 function loadConfig(root) {
-  const cfg = path.join(root, "workspace", "config", "workspace.json");
+  const cfg = path.join(root, "workspace", "config", "aether-workspace.json");
   if (!fs.existsSync(cfg)) {
     throw new Error(`Missing workspace config: ${cfg}`);
   }

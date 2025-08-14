@@ -1,7 +1,7 @@
 /**
  * AETHER Workspace Dev Runner
  * Starts all repos that define `npm run dev` in parallel.
- * - Reads workspace/config/workspace.json
+ * - Reads workspace/config/aether-workspace.json
  * - Detects each repo's package.json
  * - Spawns `npm run dev` for those that have it
  * - Uses `npx concurrently` to handle cross-platform parallelism
@@ -15,7 +15,7 @@ const path = require("path");
 const { spawnSync } = require("child_process");
 
 const root = process.cwd();
-const cfgPath = path.join(root, "workspace", "config", "workspace.json");
+const cfgPath = path.join(root, "workspace", "config", "aether-workspace.json");
 
 if (!fs.existsSync(cfgPath)) {
   console.error(`❌ Missing ${cfgPath}`);
