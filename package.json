@@ -8,9 +8,10 @@
   ],
   "scripts": {
     "install:all": "npm install",
-    "build": "npm run build -w aether-core && npm run build -w aether-frontend && npm run build -w mari-core",
-    "start": "npm run start -w aether-frontend"
+"build": "npm run build -w aether-core && npm run build -w aether-frontend && npm run build -w mari-core",
+"start": "npm run start -w aether-frontend",
+"workspace:clone-all": "npm --prefix workspace/config run workspace:clone-all"
   },
   "devDependencies": {
+    }
   }
-}
