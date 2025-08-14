@@ -5,7 +5,7 @@ const { loadConfig, run } = require("./_ws");
 const root = process.cwd();
 const cfg = loadConfig(root);
 
-for (const r of cfg.repos) {
+for (const r of Object.values(cfg.repositories)) {
   const p = path.resolve(root, r.path);
   if (!fs.existsSync(p)) {
     console.log(`🌱 Cloning ${r.name} → ${p}`);

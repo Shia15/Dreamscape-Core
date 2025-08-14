@@ -27,7 +27,7 @@ const col = (s, n) => (s || "").toString().padEnd(n);
 console.log(`${col("Repository", 20)}| ${col("State", 12)}| ${col("Branch", 12)}| Changes`);
 console.log(`${"-".repeat(20)}|${"-".repeat(13)}|${"-".repeat(13)}|--------`);
 
-for (const r of cfg.repos) {
+for (const r of Object.values(cfg.repositories)) {
   const repoPath = path.resolve(root, r.path);
   const cloned = fs.existsSync(path.join(repoPath, ".git"));
   const state = cloned ? "Cloned" : "Not Cloned";

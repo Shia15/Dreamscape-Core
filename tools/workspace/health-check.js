@@ -7,7 +7,7 @@ const root = process.cwd();
 const cfg = loadConfig(root);
 let ok = true;
 
-for (const r of cfg.repos) {
+for (const r of Object.values(cfg.repositories)) {
   const repoPath = path.resolve(root, r.path);
   const hasGit = fs.existsSync(path.join(repoPath, ".git"));
   if (!hasGit) {
