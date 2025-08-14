@@ -71,6 +71,25 @@ Every commit reflects more than code — it reflects intent.
 
 ---
 
+
+## 🛠 Developer Onboarding
+
+Before contributing, please complete the following:
+
+1. **Set up GitHub Copilot for this repository**  
+  Follow the [Best practices for Copilot coding agent in your repository](https://gh.io/copilot-coding-agent-tips) and onboard this repo.  
+  You can start the setup process here: [✨ Set up Copilot instructions](https://github.com/Dreamscape-Core/mari-core/issues/new?title=%E2%9C%A8Set+up+Copilot+instructions&body=Configure%20instructions%20for%20this%20repository%20as%20documented%20in%20%5BBest%20practices%20for%20Copilot%20coding%20agent%20in%20your%20repository%5D%28https://gh.io/copilot-coding-agent-tips%29%0A%0A%3COnboard%20this%20repo%3E&assignees=copilot)
+
+2. **Install dependencies**  
+  ```bash
+  npm run aether:setup
+  ```
+
+3. **Review our Commit Culture**  
+  Please read the [Commit Culture](#-commit-culture) guidelines below before making changes.
+
+---
+
 ## 🚀 Getting Started
 
 Tooling and simulation modules are in progress. For now:
@@ -130,6 +149,17 @@ See [`tools/workspace/README.md`](tools/workspace/README.md) for complete worksp
 - [🔗 Symbolic Snippets Library](snippets/snippets_index.md)  
 - [📘 Exhibit Index](docs/mari-core_exhibit_index.md)  
 - [🛠️ Developer Tools](tools/README.md)  
+
+---
+
+## 🗂️ Workspace Management
+
+MARI-Core is designed for seamless multi-repository development as part of the AETHER ecosystem.
+
+- The `workspace/` directory contains scripts and tools for managing, building, syncing, and developing across all AETHER repositories.
+- The `workspace/config/` directory holds configuration files (such as `aether-workspace.json`) that define repository locations, dependencies, and build/test commands for the entire workspace.
+
+For a full overview of available scripts, commands, and configuration, see the [Workspace Tools README](tools/workspace/README.md).
 
 ---
 

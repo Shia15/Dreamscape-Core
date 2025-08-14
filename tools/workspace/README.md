@@ -42,34 +42,55 @@ The AETHER workspace consists of these repositories:
 - **aether-core** - Primary orchestration and inference logic  
 - **aether-frontend** - React/Tailwind interface system
 
-## 🛠️ Available Commands
 
-### Repository Management
-- `npm run workspace:clone-all` - Clone all AETHER repositories
-- `npm run workspace:install-all` - Install dependencies for all repos
-- `npm run workspace:sync-all` - Pull latest changes from all repos
-- `npm run workspace:status-all` - Check status of all repos
+## 🛠️ Workspace Scripts & Tools
 
-### Development
-- `npm run workspace:build-all` - Build all repositories
-- `npm run workspace:test-all` - Test all repositories
-- `npm run workspace:dev` - Start all development servers
+This directory contains the following scripts for workspace management:
 
-### Quick Actions
-- `npm run aether:setup` - Complete workspace setup (clone + install)
-- `npm run aether:build` - Build everything
-- `npm run aether:test` - Test everything
-- `npm run aether:status` - Show workspace status
+| Script                | Purpose                                                      |
+|-----------------------|--------------------------------------------------------------|
+| `clone-all.js`        | Clone all AETHER repositories                                |
+| `install-all.js`      | Install dependencies for all repos                           |
+| `build-all.js`        | Build all repositories in dependency order                   |
+| `test-all.js`         | Run tests across all repositories                           |
+| `status-all.js`       | Check status of all repositories                            |
+| `sync-all.js`         | Pull latest changes from all repositories                   |
+| `dev-runner.js`       | Start all development servers (where configured)             |
+| `AetherWorkspace.js`  | Core library for workspace coordination                      |
+| `_ws.js`              | Internal helper for workspace operations                     |
 
-## ⚙️ Configuration
+### NPM Script Shortcuts
 
-The workspace is configured via `aether-workspace.json` which defines:
+| NPM Script             | What it does                                 |
+|------------------------|----------------------------------------------|
+| `aether:setup`         | Complete workspace setup (clone + install)   |
+| `aether:build`         | Build everything                            |
+| `aether:test`          | Test everything                             |
+| `aether:status`        | Show workspace status                       |
+| `workspace:dev`        | Start all dev servers                       |
+| `workspace:clone-all`  | Clone all repos                             |
+| `workspace:install-all`| Install all dependencies                    |
+| `workspace:sync-all`   | Sync all repos                              |
+| `workspace:status-all` | Status of all repos                         |
+| `workspace:build-all`  | Build all repos                             |
+| `workspace:test-all`   | Test all repos                              |
 
-- Repository locations and URLs
-- Build and test commands
-- Development server ports
-- Dependency relationships
-- Build order
+---
+
+## ⚙️ Configuration Files
+
+Workspace configuration is managed in the `workspace/config/` directory:
+
+- **`aether-workspace.json`** (canonical): Defines all repositories, their locations, dependencies, build/test commands, and environment variables for the AETHER ecosystem. This is the primary config used by workspace scripts.
+- **`workspace.json`** (legacy/simple): Lists basic repo info and dependencies. If present, it may be used by older tools, but new development should use `aether-workspace.json`.
+
+> **Recommendation:** Use and maintain `aether-workspace.json` as the authoritative workspace config. Update scripts and docs to reference this file.
+
+### Editing Configs
+- To add a new repository, update `aether-workspace.json` with its path, URL, dependencies, and commands.
+- For environment or build order changes, edit the relevant fields in `aether-workspace.json`.
+
+---
 
 ## 🔗 Repository Dependencies
 
