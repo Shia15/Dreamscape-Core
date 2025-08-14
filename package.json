@@ -4,14 +4,18 @@
   "workspaces": [
     "aether-core",
     "aether-frontend",
-    "mari-core"
+    "mari-core",
+    "frontend",
+    "Backend"
+    
   ],
   "scripts": {
-    "install:all": "npm install",
-"build": "npm run build -w aether-core && npm run build -w aether-frontend && npm run build -w mari-core",
-"start": "npm run start -w aether-frontend",
-"workspace:clone-all": "npm --prefix workspace/config run workspace:clone-all"
+    "workspace:clone-all": "node workspace/clone-all.js",
+    "workspace:install-all": "npm install --workspaces",
+    "workspace:build-all": "npm run build --workspaces",
+    "workspace:test-all": "npm test --workspaces",
+    "build": "npm run build --workspaces",
+    "start": "npm run start -w aether-frontend"
   },
-  "devDependencies": {
-    }
-  }
+  "devDependencies": {}
+}
