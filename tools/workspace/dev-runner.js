@@ -13,9 +13,14 @@
  *   (or via npm script: "workspace:dev": "node tools/workspace/dev-runner.js")
  */
 
-const fs = require("fs");
-const path = require("path");
-const { spawnSync } = require("child_process");
+import fs from "fs";
+import path from "path";
+import { spawnSync } from "child_process";
+import { fileURLToPath } from "url";
+
+// ESM replacements for __dirname/__filename
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const root = process.cwd();
 const cfgPath = path.join(root, "workspace", "config", "aether-workspace.json");

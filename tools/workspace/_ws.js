@@ -3,9 +3,9 @@
  * Provides shared functions for reading config, running commands, and ordering repos.
  */
 
-const { execSync } = require("child_process");
-const fs = require("fs");
-const path = require("path");
+import { execSync } from "child_process";
+import fs from "fs";
+import path from "path";
 
 /**
  * Loads the workspace configuration file.
@@ -63,8 +63,4 @@ function topoOrder(repos) {
   return ordered;
 }
 
-module.exports = {
-  loadConfig,
-  run,
-  topoOrder,
-};
+export { loadConfig, run, topoOrder };

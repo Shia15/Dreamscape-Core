@@ -1,7 +1,12 @@
-const { loadConfig } = require("./_ws");
-const path = require("path");
-const fs = require("fs");
-const { execSync } = require("child_process");
+import { loadConfig } from "./_ws.js";
+import path from "path";
+import fs from "fs";
+import { execSync } from "child_process";
+import { fileURLToPath } from "url";
+
+// ESM replacement for __dirname and __filename
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const root = process.cwd();
 const cfg = loadConfig(root);

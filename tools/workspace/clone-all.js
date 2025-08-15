@@ -6,9 +6,14 @@
  *   node tools/workspace/clone-all.js
  */
 
-const fs = require("fs");
-const path = require("path");
-const { loadConfig, run } = require("./_ws");
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+import { loadConfig, run } from "./_ws.js";
+
+// ESM replacements for __dirname and __filename
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const root = process.cwd();
 const cfg = loadConfig(root);
