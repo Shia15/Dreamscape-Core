@@ -1,0 +1,22 @@
+{
+  "ignorePatterns": [
+    {
+      "pattern": "https://figma.com/file/your-layer-page"
+    },
+    {
+      "pattern": "https://github.com/your-org/aether-frontend"
+    },
+    {
+      "pattern": "mari_sequence_diagram.pdf"
+    },
+    {
+      "pattern": "CHANGELOG.md"
+    },
+    {
+      "pattern": "docs/archive/"
+    },
+    {
+      "pattern": "\\.md#.*"
+    }
+  ]
+}

@@ -22,21 +22,30 @@ function hasChanges(repoPath) {
   }
 }
 
+function getBranch(repoPath) {
+  try {
+    return execSync("git rev-parse --abbrev-ref HEAD", { cwd: repoPath })
+      .toString()
+      .trim();
+  } catch {
+    return "N/A";
+  }
+}
+
 const col = (s, n) => (s || "").toString().padEnd(n);
 
 console.log(`${col("Repository", 20)}| ${col("State", 12)}| ${col("Branch", 12)}| Changes`);
 console.log(`${"-".repeat(20)}|${"-".repeat(13)}|${"-".repeat(13)}|--------`);
 
-for (const r of cfg.repos) {
-  const repoPath = path.resolve(root, r.path);
+for (const [repoKey, repo] of Object.entries(cfg.repositories)) {
+  const name = repo.name || repoKey;
+  const repoPath = path.resolve(root, repo.path);
   const cloned = fs.existsSync(path.join(repoPath, ".git"));
   const state = cloned ? "Cloned" : "Not Cloned";
-  let branch = "N/A", changes = "No";
-  if (cloned) {
-    try { branch = execSync("git rev-parse --abbrev-ref HEAD", { cwd: repoPath }).toString().trim(); } catch {}
-    changes = hasChanges(repoPath);
-  }
-  console.log(`${col(r.name, 20)}| ${col(state, 12)}| ${col(branch, 12)}| ${changes}`);
+  const branch = cloned ? getBranch(repoPath) : "N/A";
+  const changes = cloned ? hasChanges(repoPath) : "No";
+
+  console.log(`${col(name, 20)}| ${col(state, 12)}| ${col(branch, 12)}| ${changes}`);
 }
 
 console.log("\n⚑ Notes:");

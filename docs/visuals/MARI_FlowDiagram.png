@@ -1,0 +1,28 @@
+digraph MARI_FlowDiagram {
+	rankdir=TB size="8,10"
+	node [shape=box style=rounded]
+	User [label="User Input"]
+	Parse [label="InputHandler: Parse Input"]
+	IntentObj [label="Create Intent Object"]
+	Route [label="Controller: Route Intent"]
+	Decision [label="CLU: Process + Decide Action"]
+	Memory [label="Mnēsis: Retrieve Memory Context"]
+	Emotion [label="Reverie: Evaluate Mood"]
+	Branch [label="Is Mood LOW_ENERGY?"]
+	Suggest [label="Response: Suggest rest/music"]
+	Expand [label="Response: Generate Complex Output"]
+	Render [label="InterfaceRenderer: Deliver Response"]
+	Log [label="MoodGauge: Update User State"]
+	User -> Parse
+	Parse -> IntentObj
+	IntentObj -> Route
+	Route -> Decision
+	Decision -> Memory
+	Memory -> Emotion
+	Emotion -> Branch
+	Branch -> Suggest [label=Yes]
+	Branch -> Expand [label=No]
+	Suggest -> Render
+	Expand -> Render
+	Render -> Log
+}

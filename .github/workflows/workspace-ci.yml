@@ -1,0 +1,42 @@
+name: Workspace CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🛎 Checkout
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: 📥 Install workspace manager deps
+        run: npm ci
+
+      - name: 🌱 Clone all repos
+        run: npm run workspace:clone-all
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 📦 Install all repo deps
+        run: npm run workspace:install-all
+
+      - name: 🏗 Build all
+        run: npm run workspace:build-all
+        env:
+          AETHER_SKIP_TOKEN_SYNC: "1" # skip token sync so frontend builds cleanly
+
+      - name: 🧪 Test all
+        run: npm run workspace:test-all
+        env:
+          AETHER_SKIP_TOKEN_SYNC: "1"
