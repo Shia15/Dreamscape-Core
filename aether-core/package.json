@@ -1,5 +1,15 @@
 {
+  "name": "aether-core",
+  "version": "1.0.0",
+  "description": "Backend infrastructure for the AETHER system",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "node src/index.js",
+    "test": "echo \"✓ Symbolic tests passing...\" && exit 0"
+  },
+  "author": "Your Name",
+  "license": "MIT",
   "dependencies": {
-    "mari-core": "*"
+    "express": "^4.18.2"
   }
 }

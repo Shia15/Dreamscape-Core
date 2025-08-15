@@ -2,6 +2,7 @@
   "name": "dreamscape-frontend",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -10,14 +11,14 @@
     "predev": "npm run tokens",
     "prebuild": "npm run tokens"
   },
-  "type": "module",
+  "dependencies": {
+    "mari-core": "file:../mari-core"
+  },
   "devDependencies": {
     "autoprefixer": "10.4.21",
     "concurrently": "9.2.0",
     "postcss": "8.4.38",
-    "tailwindcss": "4.1.11"
-  },
-  "dependencies": {
-    "mari-core": "^1.0.0"
+    "tailwindcss": "4.1.11",
+    "vite": "^4.4.0"
   }
 }

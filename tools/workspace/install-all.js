@@ -1,30 +1,43 @@
-import { existsSync } from "fs";
-import { resolve, join } from "path";
-import { loadConfig, run, topoOrder } from "./_ws";
+// _ws.mjs
+import { execSync } from "child_process";
+import fs from "fs";
+import path from "path";
 
-const root = process.cwd();
-const cfg = loadConfig(root);
+export function loadConfig(root) {
+  const configPath = path.join(root, "workspace", "config", "aether-workspace.json");
 
-console.log("\n📦 Installing dependencies across workspace\n");
-
-const reposInOrder = topoOrder(
-  Object.entries(cfg.repositories).map(([repoKey, repo]) => ({
-    ...repo,
-    name: repo.name || repoKey
-  }))
-);
-
-for (const r of reposInOrder) {
-  const repoPath = resolve(root, r.path);
-  const pkg = join(repoPath, "package.json");
-
-  if (!existsSync(pkg)) {
-    console.log(`⏭️  Skip ${r.name} (no package.json)`);
-    continue;
+  if (!fs.existsSync(configPath)) {
+    throw new Error(`Workspace config not found: ${configPath}`);
   }
 
-  console.log(`📦 Installing for ${r.name}...`);
-  run("npm ci || npm install", repoPath);
+  try {
+    return JSON.parse(fs.readFileSync(configPath, "utf8"));
+  } catch (err) {
+    throw new Error(`Failed to parse workspace config: ${err.message}`);
+  }
 }
 
-console.log("\n✨ install-all complete\n");
+export function run(cmd, cwd, silent = false) {
+  try {
+    execSync(cmd, { stdio: silent ? "pipe" : "inherit", cwd });
+  } catch (error) {
+    console.error(`⚠️ Command failed: ${cmd}`);
+    throw error;
+  }
+}
+
+export function topoOrder(repos) {
+  const repoMap = new Map(repos.map((r) => [r.name, r]));
+  const visited = new Set();
+  const ordered = [];
+
+  function visit(repo) {
+    if (!repo || visited.has(repo.name)) return;
+    (repo.dependsOn || []).forEach((dep) => visit(repoMap.get(dep)));
+    visited.add(repo.name);
+    ordered.push(repo);
+  }
+
+  repos.forEach(visit);
+  return ordered;
+}

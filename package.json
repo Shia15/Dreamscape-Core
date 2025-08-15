@@ -2,12 +2,13 @@
   "name": "dreamscape-core",
   "version": "1.0.0",
   "private": true,
-  "description": "Welcome to **MARI-Core** — the cognitive-emotional engine behind the AETHER system.",
+  "type": "module",
+  "description": "Welcome to MARI-Core — the cognitive-emotional engine behind the AETHER system.",
   "main": "index.js",
   "workspaces": [
+    "mari-core",
     "aether-core",
     "aether-frontend",
-    "mari-core",
     "frontend",
     "Backend"
   ],
@@ -36,9 +37,9 @@
     "type": "git",
     "url": "git+https://github.com/Dreamscape-Core/mari-core.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["AETHER", "MARI-Core", "workspace", "multi-repo"],
+  "author": "Your Name",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Dreamscape-Core/mari-core/issues"
   },
