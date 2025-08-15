@@ -1,30 +1,16 @@
 {
-<<<<<<< HEAD
   "name": "dreamscape-core",
+  "version": "1.0.0",
   "private": true,
+  "description": "Welcome to **MARI-Core** — the cognitive-emotional engine behind the AETHER system.",
+  "main": "index.js",
   "workspaces": [
     "aether-core",
     "aether-frontend",
     "mari-core",
     "frontend",
     "Backend"
-    
   ],
-  "scripts": {
-    "workspace:clone-all": "node workspace/clone-all.js",
-    "workspace:install-all": "npm install --workspaces",
-    "workspace:build-all": "npm run build --workspaces",
-    "workspace:test-all": "npm test --workspaces",
-    "build": "npm run build --workspaces",
-    "start": "npm run start -w aether-frontend"
-  },
-  "devDependencies": {}
-}
-=======
-  "name": "mari-core",
-  "version": "1.0.0",
-  "description": "Welcome to **MARI-Core** — the cognitive-emotional engine behind the AETHER system.",
-  "main": "index.js",
   "directories": {
     "doc": "docs"
   },
@@ -43,7 +29,8 @@
     "workspace:status-all": "node tools/workspace/status-all.js",
     "workspace:sync-all": "node tools/workspace/sync-all.js",
     "workspace:dev": "node tools/workspace/dev-runner.js",
-    "workspace:health": "node tools/workspace/health-check.js"
+    "workspace:health": "node tools/workspace/health-check.js",
+    "start": "npm run start -w aether-frontend"
   },
   "repository": {
     "type": "git",
@@ -62,4 +49,3 @@
     "concurrently": "^9.2.0"
   }
 }
->>>>>>> b2910219bbdb1804d60856ea7266ada8fb48dfa6
