@@ -2,7 +2,7 @@
 
 import { Mood } from "./moodTypes"
 
-const DEFAULT_MOOD: Mood = "neutral"
+const DEFAULT_MOOD: Mood = "clarity"
 
 interface MoodHistoryEntry {
   timestamp: number

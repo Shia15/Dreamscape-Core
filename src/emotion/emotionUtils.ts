@@ -1,5 +1,5 @@
-import { Mood } from \"./moodTypes\"
-import { moodWeights } from \"./moodWeights\"
+import { Mood } from "./moodTypes"
+import { moodWeights } from "./moodWeights"
 
 export function normalizeWeights(weights: Record<Mood, number>): Record<Mood, number> {
   const total = Object.values(weights).reduce((sum, val) => sum + val, 0)
@@ -12,7 +12,7 @@ export function normalizeWeights(weights: Record<Mood, number>): Record<Mood, nu
 
 export function getDominantMood(weights: Record<Mood, number>): Mood {
   let max: number = -Infinity
-  let dominant: Mood = \"clarity\"
+  let dominant: Mood = "clarity"
   for (const mood in weights) {
     if (weights[mood as Mood] > max) {
       max = weights[mood as Mood]
