@@ -1,24 +1,26 @@
-{
-  "name": "dreamscape-frontend",
-  "version": "0.0.0",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "tokens": "node ./scripts/sync-tokens.js",
-    "predev": "npm run tokens",
-    "prebuild": "npm run tokens"
-  },
-  "dependencies": {
-    "mari-core": "file:../mari-core"
-  },
-  "devDependencies": {
-    "autoprefixer": "10.4.21",
-    "concurrently": "9.2.0",
-    "postcss": "8.4.38",
-    "tailwindcss": "4.1.11",
-    "vite": "^7.1.2"
-  }
+﻿{
+    "name":  "@dreamscape/aether-frontend",
+    "version":  "0.1.0",
+    "private":  true,
+    "type":  "module",
+    "scripts":  {
+                    "dev":  "vite",
+                    "build":  "vite build",
+                    "preview":  "vite preview",
+                    "tokens":  "node ./scripts/sync-tokens.js",
+                    "predev":  "pnpm run tokens",
+                    "prebuild":  "pnpm run tokens"
+                },
+    "dependencies":  {
+                         "@dreamscape/aether-core":  "workspace:*",
+                         "@dreamscape/mari-core":  "workspace:*"
+                     },
+    "devDependencies":  {
+                            "autoprefixer":  "10.4.21",
+                            "concurrently":  "^9.2.0",
+                            "postcss":  "8.4.38",
+                            "tailwindcss":  "4.1.11",
+                            "vite":  "^5.4.0",
+                            "typescript":  "^5.9.2"
+                        }
 }

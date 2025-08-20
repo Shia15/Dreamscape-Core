@@ -1,11 +1,14 @@
 {
-  "name": "aether-core",
+  "name": "@dreamscape/aether-core",
   "version": "1.0.0",
   "description": "Backend infrastructure for the AETHER system",
   "main": "src/index.js",
+  "private": false,
+  "type": "module",
   "scripts": {
     "dev": "node src/index.js",
-    "test": "echo \"✓ Symbolic tests passing...\" && exit 0"
+    "test": "echo \"✓ Symbolic tests passing...\" && exit 0",
+    "build": "echo \"📦 Build complete.\""
   },
   "author": "Your Name",
   "license": "MIT",
