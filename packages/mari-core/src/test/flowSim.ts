@@ -6,9 +6,9 @@ import { routeIntent } from "../controller/intentRouter"
 
 // Mock mood weight object
 const moodWeights = {
-  REFLECTIVE: 0.7,
-  INSIGHTFUL: 0.2,
-  TRANSFORMATIVE: 0.1,
+  clarity: 0.5,
+  resonance: 0.3,
+  curiosity: 0.2,
 }
 
 // Example user input

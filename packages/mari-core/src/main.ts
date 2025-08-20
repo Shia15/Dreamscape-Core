@@ -39,7 +39,7 @@ function runFlow(input: string, moodHints: Partial<Record<Mood, number>> = {}) {
 const rl = readline.createInterface({ input: process.stdin, output: process.stdout })
 
 rl.question("✨ Ask AETHER: ", (userInput) => {
-  runFlow(userInput, { curiosity: 0.6, openness: 0.4 }) // Adjust mood hints as desired
+  runFlow(userInput, { curiosity: 0.6, awe: 0.4 }) // Adjust mood hints as desired
   rl.close()
 })
 // Export for testing or further integration next
