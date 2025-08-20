@@ -1,51 +1,71 @@
-name: Node.js CI
+name: Node.js CI (locked)
 
 on:
-  push:
-    branches: [ "main", "master", "chore/monorepo-restructure" ]
   pull_request:
-    branches: [ "main", "master", "chore/monorepo-restructure" ]
+    branches: [main]
+  push:
+    branches: [main]
 
 jobs:
   build:
-    name: Node.js ${{ matrix.node-version }}
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x, 22.x]
-
     steps:
-      - name: 📥 Checkout repository
-        uses: actions/checkout@v5
+      # Pin actions to @v4 now; later you can replace @v4 with a commit SHA
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: 🔍 Check for package-lock.json
-        run: |
-          if [ -f package-lock.json ]; then
-            echo "✅ Lock file found – proceeding with npm ci"
-          else
-            echo "⚠️ Lock file NOT found – continuing anyway"
-          fi
-
-      - name: 🧰 Setup Node.js
+      - name: Setup Node 18.20.8 (with npm cache)
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+          node-version: 18.20.8
+          cache: npm
 
-      - name: 📦 Install dependencies
+      - name: Verify lockfile present
+        run: test -f package-lock.json
+
+      - name: Install deps
         run: npm ci
 
-      - name: 🛠️ Build project
+      - name: Build (if present)
+        run: npm run build --if-present
+
+      - name: Test (if present)
+        run: npm test --if-present
+
+  # FAIL PRs that edit workflow files unless a special label is present
+  guard_workflows:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'pull_request' }}
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Block workflow edits without label
+        shell: bash
         run: |
-          if [ -f package.json ]; then
-            echo "📦 Running TypeScript build..."
-            npx tsc
-          else
-            echo "⚠️ No package.json found – skipping build step"
+          set -euo pipefail
+          BASE="${{ github.base_ref }}"
+          git fetch --no-tags --prune --depth=1 origin "$BASE"
+          CHANGED=$(git diff --name-only "origin/$BASE"...HEAD | grep '^.github/workflows/' || true)
+
+          if [ -z "$CHANGED" ]; then
+            echo "No workflow changes."
+            exit 0
           fi
 
-      - name: ✅ Symbolic CI Complete
-        run: |
-          echo "🧬 CI completed by ${{ github.actor }} on branch ${{ github.ref }}"
-          echo "🎯 Node version: ${{ matrix.node-version }}"
-          echo "🕒 Completed at $(date)"
+          echo "Detected workflow changes:"
+          echo "$CHANGED"
+          echo
+
+          # Read labels from the PR event payload
+          HAS_LABEL=$(jq -r '.pull_request.labels[].name' "$GITHUB_EVENT_PATH" | grep -Fx 'allow-workflow-change' || true)
+          if [ -n "$HAS_LABEL" ]; then
+            echo "override label 'allow-workflow-change' present; allowing."
+            exit 0
+          fi
+
+          echo "Workflows changed. Add PR label: allow-workflow-change"
+          exit 1
