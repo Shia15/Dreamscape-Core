@@ -38,8 +38,8 @@ jobs:
       - name: 🛠️ Build project
         run: |
           if [ -f package.json ]; then
-            echo "📦 Running npm build..."
-            npm run build
+            echo "📦 Running TypeScript build..."
+            npx tsc
           else
             echo "⚠️ No package.json found – skipping build step"
           fi
