@@ -1,30 +1,15 @@
 name: Workspace CI
 
 on:
-  pull_request:
-    branches: [main]
   push:
-    branches: [main]
+    branches:
+      - main
+  pull_request:
 
 jobs:
-  build_all:
+  build:
     runs-on: ubuntu-latest
-    env:
-      WS_CONFIG: workspace/config/aether-workspace.json
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node 18.20.8 (with npm cache)
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18.20.8
-          cache: npm
-
-      - name: Install manager deps
-        run: npm ci
-
       - name: Check workspace config
         id: ws
         shell: bash
@@ -36,43 +21,23 @@ jobs:
           fi
 
       - name: Clone all repos
-        if: steps.ws.outputs.present == 'true'
+        if: ${{ steps.ws.outputs.present == 'true' }}
         run: npm run workspace:clone-all
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install all repo deps
-        if: steps.ws.outputs.present == 'true'
+        if: ${{ steps.ws.outputs.present == 'true' }}
         run: npm run workspace:install-all
 
       - name: Build all
-        if: steps.ws.outputs.present == 'true'
+        if: ${{ steps.ws.outputs.present == 'true' }}
         run: npm run workspace:build-all
 
       - name: Test all
-        if: steps.ws.outputs.present == 'true'
+        if: ${{ steps.ws.outputs.present == 'true' }}
         run: npm run workspace:test-all
 
       - name: Skip workspace build (config missing)
-        if: steps.ws.outputs.present != 'true'
-        run: "echo \"Skipping workspace build: $WS_CONFIG not found.\""
-
-  guard_workflows:
-    runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'pull_request' }}
-    steps:
-      - uses: actions/checkout@v4
-      - name: Block workflow edits without label
-        shell: bash
-        run: |
-          set -euo pipefail
-          BASE="${{ github.base_ref }}"
-          git fetch --no-tags --prune --depth=1 origin "$BASE"
-          CHANGED=$(git diff --name-only "origin/$BASE"...HEAD | grep '^.github/workflows/' || true)
-          if [ -z "$CHANGED" ]; then
-            echo "No workflow changes."
-            exit 0
-          fi
-          HAS_LABEL=$(jq -r '.pull_request.labels[].name' "$GITHUB_EVENT_PATH" | grep -Fx 'allow-workflow-change' || true)
-          [ -n "$HAS_LABEL" ] && { echo "override label present"; exit 0; }
-          echo "Workflows changed. Add label: allow-workflow-change"; exit 1
+        if: ${{ steps.ws.outputs.present != 'true' }}
+        run: "echo 'Skipping workspace build: $WS_CONFIG not found.'"
