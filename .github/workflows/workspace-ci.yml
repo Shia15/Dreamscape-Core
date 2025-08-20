@@ -1,42 +1,86 @@
 name: Workspace CI
 
 on:
-  push:
-    branches: [ main ]
   pull_request:
-    branches: [ main ]
+    branches: [main]
+  push:
+    branches: [main]
+
+# (Optional) set default minimal permissions for all jobs
+permissions:
+  contents: read
+  pull-requests: read
 
 jobs:
-  build_test:
+  # --- your multi-repo build job ---
+  build_all:
     runs-on: ubuntu-latest
-
     steps:
-      - name: 🛎 Checkout
-        uses: actions/checkout@v5
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: 📦 Setup Node.js
+      - name: Setup Node 18.20.8 (with npm cache)
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 18.20.8
           cache: npm
 
-      - name: 📥 Install workspace manager deps
+      - name: Install manager deps
         run: npm ci
 
-      - name: 🌱 Clone all repos
+      # Clone all dependent repos (adjust to your script)
+      - name: Clone all repos
         run: npm run workspace:clone-all
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 📦 Install all repo deps
+      - name: Install all repo deps
         run: npm run workspace:install-all
 
-      - name: 🏗 Build all
+      - name: Build all
         run: npm run workspace:build-all
         env:
-          AETHER_SKIP_TOKEN_SYNC: "1" # skip token sync so frontend builds cleanly
+          AETHER_SKIP_TOKEN_SYNC: "1"
 
-      - name: 🧪 Test all
+      - name: Test all
         run: npm run workspace:test-all
         env:
           AETHER_SKIP_TOKEN_SYNC: "1"
+
+  # --- guard job blocks workflow edits without a label ---
+  guard_workflows:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'pull_request' }}
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Block workflow edits without label
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE="${{ github.base_ref }}"
+          git fetch --no-tags --prune --depth=1 origin "$BASE"
+          CHANGED=$(git diff --name-only "origin/$BASE"...HEAD | grep '^.github/workflows/' || true)
+
+          if [ -z "$CHANGED" ]; then
+            echo "No workflow changes."
+            exit 0
+          fi
+
+          echo "Detected workflow changes:"
+          echo "$CHANGED"
+          echo
+
+          # Read labels from PR event payload (jq is available on Ubuntu runner)
+          HAS_LABEL=$(jq -r '.pull_request.labels[].name' "$GITHUB_EVENT_PATH" | grep -Fx 'allow-workflow-change' || true)
+          if [ -n "$HAS_LABEL" ]; then
+            echo "override label 'allow-workflow-change' present; allowing."
+            exit 0
+          fi
+
+          echo "Workflows changed. Add PR label: allow-workflow-change"
+          exit 1
