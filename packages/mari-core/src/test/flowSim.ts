@@ -1,8 +1,8 @@
 // flowSim.ts – Simulates symbolic user input routed by mood
 
-import { evaluateMood } from "../emotion/moodLogic"
-import { agentRegistry } from "../agents"
-import { routeIntent } from "../controller/intentRouter"
+import { evaluateMood } from "../emotion/moodLogic.js"
+import { agentRegistry } from "../agents/index.js"
+import { routeIntent } from "../controller/intentRouter.js"
 
 // Mock mood weight object
 const moodWeights = {
