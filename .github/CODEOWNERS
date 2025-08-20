@@ -1,0 +1,3 @@
+# Workflows & lockfile require your review
+.github/workflows/**   @shia15
+package-lock.json      @shia15
