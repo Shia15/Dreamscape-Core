@@ -85,3 +85,6 @@ workspace/**/.env.local
 # Ignore cloned repos that are not in Git submodules
 /workspace/repos/**/.git
 /workspace/repos/**/node_modules/
+
+# never commit local keys
+Dreamscape-Core*
