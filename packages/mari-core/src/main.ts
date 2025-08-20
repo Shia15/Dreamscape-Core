@@ -1,8 +1,8 @@
 // main.ts – Symbolic Flow Engine Entry Point
 
-import { processInput } from "./controller/controller"
-import { remember, recallLast } from "./memory/memoryStore"
-import { Mood } from "./emotion/moodTypes"
+import { processInput } from "./controller/controller.js"
+import { remember, recallLast } from "./memory/memoryStore.js"
+import { Mood } from "./emotion/moodTypes.js"
 import readline from "readline"
 
 /**

@@ -1,6 +1,6 @@
 // controller.ts – High-level intent and agent orchestration
 
-import { routeIntent } from "./intentRouter"
+import { routeIntent } from "./intentRouter.js"
 import { Mood } from "../emotion/moodTypes"
 
 /**
