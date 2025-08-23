@@ -1,0 +1,59 @@
+{
+  "name": "AETHER Ecosystem",
+  "version": "1.0.0",
+  "description": "Multi-repository workspace configuration for the AETHER cognitive system",
+  "workspaceRoot": "../",
+  "repositories": {
+    "mari-core": {
+      "path": ".",
+      "url": "https://github.com/Dreamscape-Core/mari-core.git",
+      "type": "core",
+      "description": "Cognitive-emotional engine and symbolic reasoning core",
+      "dependencies": [],
+      "technologies": ["typescript", "node"],
+      "buildCommand": "npm run build",
+      "testCommand": "npm test",
+      "devPort": null
+    },
+    "aether-core": {
+      "path": "../aether-core", 
+      "url": "https://github.com/Dreamscape-Core/aether-core.git",
+      "type": "orchestration",
+      "description": "Primary orchestration and inference logic",
+      "dependencies": ["mari-core"],
+      "technologies": ["typescript", "node"],
+      "buildCommand": "npm run build",
+      "testCommand": "npm test",
+      "devPort": 3001
+    },
+    "aether-frontend": {
+      "path": "../aether-frontend",
+      "url": "https://github.com/Dreamscape-Core/aether-frontend.git", 
+      "type": "interface",
+      "description": "React/Tailwind interface system",
+      "dependencies": ["aether-core"],
+      "technologies": ["react", "typescript", "tailwind"],
+      "buildCommand": "npm run build",
+      "testCommand": "npm test",
+      "devPort": 3000
+    }
+  },
+  "scripts": {
+    "clone-all": "node tools/workspace/clone-all.js",
+    "install-all": "node tools/workspace/install-all.js", 
+    "build-all": "node tools/workspace/build-all.js",
+    "test-all": "node tools/workspace/test-all.js",
+    "status-all": "node tools/workspace/status-all.js",
+    "sync-all": "node tools/workspace/sync-all.js",
+    "dev": "node tools/workspace/dev-runner.js"
+  },
+  "sharedDependencies": {
+    "typescript": "^5.9.2",
+    "@types/node": "^24.1.0"
+  },
+  "buildOrder": ["mari-core", "aether-core", "aether-frontend"],
+  "environment": {
+    "NODE_ENV": "development",
+    "AETHER_WORKSPACE_ROOT": "../"
+  }
+}

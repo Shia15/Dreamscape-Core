@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, chore/**, feat/**, fix/** ]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Node + Corepack (enables pnpm)
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          check-latest: true
+      - name: Enable Corepack (pnpm)
+        run: corepack enable
+
+      # (Optional) Pin pnpm version if you want
+      # - run: corepack prepare pnpm@10.14.0 --activate
+
+      # Faster installs / caching
+      - name: Get pnpm store directory
+        id: pnpm-store
+        run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-store.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      # Install at the monorepo root (requires pnpm-workspace.yaml in root)
+      - name: Install deps
+        run: pnpm install
+        env:
+          CI: true
+
+      # Build everything or target the app(s)
+      - name: Build all packages
+        run: pnpm -r build
+
+      # Optionally: build only the frontend app
+      # - name: Build frontend
+      #   run: pnpm -F @dreamscape/aether-frontend build
+
+      # Optionally: run tests (workspace-wide)
+      # - name: Test
+      #   run: pnpm -r test

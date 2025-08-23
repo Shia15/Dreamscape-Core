@@ -1,0 +1,161 @@
+
+=== File Structure for Backend ===
+Folder PATH listing
+Volume serial number is 5E69-F190
+C:\USERS\ADMIN\DOWNLOADS\DREAMSCAPE-CORE\BACKEND
++---.github
++---workflows
+        keep.txt
+        
+
+=== File Structure for aether-core ===
+Folder PATH listing
+Volume serial number is 5E69-F190
+C:\USERS\ADMIN\DOWNLOADS\DREAMSCAPE-CORE\AETHER-CORE
+ª   package.json
+ª   
++---.github
+ª       README.md
+ª       
++---workflows
+
+=== File Structure for aether-frontend ===
+Folder PATH listing
+Volume serial number is 5E69-F190
+C:\USERS\ADMIN\DOWNLOADS\DREAMSCAPE-CORE\AETHER-FRONTEND
+ª   eslint.config.js
+ª   index.html
+ª   package.json
+ª   postcss.cjs
+ª   sync-tokens.js
+ª   tailwind.config.cjs
+ª   tailwind.config.js
+ª   vite.config.js
+ª   
++---.github
+ª       README.md
+ª       
++---.vercel
+ª       project.json
+ª       README.txt
+ª       
++---public
+ª       vite.svg
+ª       
++---src
+ª   ª   App.css
+ª   ª   App.jsx
+ª   ª   index.css
+ª   ª   main.jsx
+ª   ª   
+ª   +---assets
+ª   ª       react.svg
+ª   ª       
+ª   +---components
+ª       +---core
+ª       ª       Egg.jsx
+ª       ª       EnergyMeter.jsx
+ª       ª       ResonanceCore.jsx
+ª       ª       
+ª       +---panels
+ª           ª   AetherPanel.jsx
+ª           ª   
+ª           +---AetherControl
+ª                   AetherControlPanel.jsx
+ª                   
++---workflows
+
+=== File Structure for mari-core ===
+Folder PATH listing
+Volume serial number is 5E69-F190
+C:\USERS\ADMIN\DOWNLOADS\DREAMSCAPE-CORE\MARI-CORE
+ª   .gitignore
+ª   MULTI_REPO_SOLUTION.md
+ª   package.json
+ª   README.md
+ª   
++---.copilot
+ª       config.json
+ª       
++---.github
+ª       CONTRIBUTING.md
+ª       LICENSE
+ª       pull_request_template.md
+ª       
++---docs
+ª   ª   AETHER_Input_to_Output_Flow.pdf
+ª   ª   Agent_Mapping.md
+ª   ª   Architecture_Reference.md
+ª   ª   Emotion_Interaction_Flow.png
+ª   ª   Flow_Glossary.md
+ª   ª   Founders_Harmony_Log.md
+ª   ª   graphviz.svg
+ª   ª   index.md
+ª   ª   mari-core_exhibit_index.md
+ª   ª   mari-core_structure.md
+ª   ª   MARI_ClassDiagram_source.dot
+ª   ª   MARI_FlowDiagram.png
+ª   ª   quick_links.md
+ª   ª   Runtime_Architecture.md
+ª   ª   
+ª   +---diagrams
+ª   ª   +---keep
+ª   +---trackers
+ª   ª   +---keep
+ª   +---visuals
+ª           AETHER_Icon_Set_Reference_Final.pdf
+ª           AETHER_Input_to_Output_Flow.pdf
+ª           Emotion_Interaction_Flow.png
+ª           mari_class_diagram.pdf
+ª           MARI_FlowDiagram.png
+ª           mari_sequence_diagram.pdf
+ª           
++---snippets
+ª       snippets_commit_examples.md
+ª       snippets_embed_templates.md
+ª       snippets_index.md
+ª       snippets_symbolic_badges.md
+ª       snippets_symbolic_log_template.md
+ª       
++---src
+ª   ª   main.ts
+ª   ª   
+ª   +---agents
+ª   ª       AgentTypes.ts
+ª   ª       Aletheia.ts
+ª   ª       index.ts
+ª   ª       Inferaia.ts
+ª   ª       Mnesis.ts
+ª   ª       Reverie.ts
+ª   ª       
+ª   +---controller
+ª   ª       controller.ts
+ª   ª       intentRouter.ts
+ª   ª       
+ª   +---emotion
+ª   ª       emotionUtils.ts
+ª   ª       moodLogic.ts
+ª   ª       MoodMapPanel.jsx
+ª   ª       moodTypes.ts
+ª   ª       moodWeights.ts
+ª   ª       
+ª   +---memory
+ª   ª       memoryStore.ts
+ª   ª       
+ª   +---test
+ª   ª       flowSim.ts
+ª   ª       test-sign.js
+ª   ª       
+ª   +---tokens
+ª           aether_tokens_template.json
+ª           
++---workspace
+
+=== File Structure for frontend ===
+Folder PATH listing
+Volume serial number is 5E69-F190
+C:\USERS\ADMIN\DOWNLOADS\DREAMSCAPE-CORE\FRONTEND
++---.github
++---workflows
+        keep.txt
+        

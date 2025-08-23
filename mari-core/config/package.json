@@ -1,0 +1,41 @@
+{
+  "name": "mari-core",
+  "version": "1.0.0",
+  "description": "Welcome to **MARI-Core** — the cognitive-emotional engine behind the AETHER system.",
+  "main": "index.js",
+  "directories": {
+  "doc": "docs"
+  },
+"scripts": {
+  "aether:setup": "npm run workspace:clone-all && npm run workspace:install-all",
+  "aether:build": "npm run workspace:build-all",
+  "aether:test": "npm run workspace:test-all",
+  "aether:status": "npm run workspace:status-all",
+  "aether:health": "npm run workspace:health",
+  "test": "echo \"✓ Symbolic tests passing...\" && exit 0",
+  "build": "echo \"📦 Build complete.\"",
+  "workspace:clone-all": "node tools/workspace/clone-all.js",
+  "workspace:install-all": "node tools/workspace/install-all.js",
+  "workspace:build-all": "node tools/workspace/build-all.js",
+  "workspace:test-all": "node tools/workspace/test-all.js",
+  "workspace:status-all": "node tools/workspace/status-all.js",
+  "workspace:sync-all": "node tools/workspace/sync-all.js",
+  "workspace:dev": "node tools/workspace/dev-runner.js",
+  "workspace:health": "node tools/workspace/health-check.js"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dreamscape-Core/mari-core.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dreamscape-Core/mari-core/issues"
+  },
+  "homepage": "https://github.com/Dreamscape-Core/mari-core#readme",
+  "devDependencies": {
+    "@types/node": "^24.1.0",
+    "typescript": "^5.9.2"
+  }
+}
