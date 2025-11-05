@@ -9,7 +9,7 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { loadConfig, run } from "./_ws.js";
+import { loadConfig, normalizeRepos, run } from "./_ws.js";
 
 // ESM replacements for __dirname and __filename
 const __filename = fileURLToPath(import.meta.url);
@@ -21,8 +21,8 @@ const cfg = loadConfig(root);
 console.log("\n🌱 AETHER Workspace: Clone All");
 console.log("==============================");
 
-for (const [repoKey, repo] of Object.entries(cfg.repositories)) {
-  const name = repo.name || repoKey;
+for (const repo of normalizeRepos(cfg)) {
+  const name = repo.name;
   const repoPath = path.resolve(root, repo.path);
 
   if (!repo.url) {

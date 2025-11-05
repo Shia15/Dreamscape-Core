@@ -17,6 +17,7 @@ import fs from "fs";
 import path from "path";
 import { spawnSync } from "child_process";
 import { fileURLToPath } from "url";
+import { loadConfig, normalizeRepos } from "./_ws.js";
 
 // ESM replacements for __dirname/__filename
 const __filename = fileURLToPath(import.meta.url);
@@ -30,13 +31,18 @@ if (!fs.existsSync(cfgPath)) {
   process.exit(1);
 }
 
-const cfg = JSON.parse(fs.readFileSync(cfgPath, "utf8"));
+const cfg = loadConfig(root);
 const commands = [];
 
-for (const [repoKey, repo] of Object.entries(cfg.repositories)) {
-  const name = repo.name || repoKey;
+for (const repo of normalizeRepos(cfg)) {
+  const name = repo.name;
   const repoPath = path.resolve(root, repo.path);
   const pkgPath = path.join(repoPath, "package.json");
+
+  if (!fs.existsSync(repoPath)) {
+    console.log(`⏭️  Skip ${name} (directory not found)`);
+    continue;
+  }
 
   if (!fs.existsSync(pkgPath)) {
     console.log(`⏭️  Skip ${name} (no package.json)`);

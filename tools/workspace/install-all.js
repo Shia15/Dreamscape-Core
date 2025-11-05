@@ -1,43 +1,30 @@
-// _ws.mjs
-import { execSync } from "child_process";
 import fs from "fs";
 import path from "path";
+import { loadConfig, normalizeRepos, run, topoOrder } from "./_ws.js";
 
-export function loadConfig(root) {
-  const configPath = path.join(root, "workspace", "config", "aether-workspace.json");
+const root = process.cwd();
+const cfg = loadConfig(root);
 
-  if (!fs.existsSync(configPath)) {
-    throw new Error(`Workspace config not found: ${configPath}`);
+for (const repo of topoOrder(normalizeRepos(cfg))) {
+  const repoPath = path.resolve(root, repo.path);
+  const pkgPath = path.join(repoPath, "package.json");
+
+  if (!fs.existsSync(repoPath)) {
+    console.log(`⏭️  Skipping ${repo.name} — directory not found (${repoPath})`);
+    continue;
   }
 
+  if (!fs.existsSync(pkgPath)) {
+    console.log(`ℹ️  Skipping ${repo.name} — no package.json`);
+    continue;
+  }
+
+  console.log(`\n📦 Installing dependencies for ${repo.name}`);
   try {
-    return JSON.parse(fs.readFileSync(configPath, "utf8"));
-  } catch (err) {
-    throw new Error(`Failed to parse workspace config: ${err.message}`);
+    run("npm install", repoPath);
+  } catch {
+    console.log(`⚠️  Installation failed for ${repo.name}`);
   }
 }
 
-export function run(cmd, cwd, silent = false) {
-  try {
-    execSync(cmd, { stdio: silent ? "pipe" : "inherit", cwd });
-  } catch (error) {
-    console.error(`⚠️ Command failed: ${cmd}`);
-    throw error;
-  }
-}
-
-export function topoOrder(repos) {
-  const repoMap = new Map(repos.map((r) => [r.name, r]));
-  const visited = new Set();
-  const ordered = [];
-
-  function visit(repo) {
-    if (!repo || visited.has(repo.name)) return;
-    (repo.dependsOn || []).forEach((dep) => visit(repoMap.get(dep)));
-    visited.add(repo.name);
-    ordered.push(repo);
-  }
-
-  repos.forEach(visit);
-  return ordered;
-}
+console.log("\n✨ install-all complete\n");
