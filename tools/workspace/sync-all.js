@@ -1,17 +1,19 @@
-const path = require("path");
-const { loadConfig, run, topoOrder } = require("./_ws");
+import fs from "fs";
+import path from "path";
+import { loadConfig, normalizeRepos, run, topoOrder } from "./_ws.js";
 
 const root = process.cwd();
 const cfg = loadConfig(root);
 
-// Iterate repos in topological order if dependencies exist
-for (const repo of topoOrder(
-  Object.entries(cfg.repositories).map(([repoKey, repo]) => ({
-    ...repo,
-    name: repo.name || repoKey
-  }))
-)) {
+for (const repo of topoOrder(normalizeRepos(cfg))) {
   const repoPath = path.resolve(root, repo.path);
+  const gitDir = path.join(repoPath, ".git");
+
+  if (!fs.existsSync(gitDir)) {
+    console.log(`\n⏭️  Skipping ${repo.name} — repository not cloned at ${repoPath}`);
+    continue;
+  }
+
   console.log(`\n🔄 Syncing ${repo.name}...\n`);
 
   try {

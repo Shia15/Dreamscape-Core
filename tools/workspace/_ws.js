@@ -28,6 +28,35 @@ function loadConfig(root) {
 }
 
 /**
+ * Normalises the repository definitions in the workspace config.
+ * Supports both the legacy `repositories` object map and the newer `repos` array format.
+ *
+ * @param {Object} cfg - Raw workspace configuration.
+ * @returns {Array<{name: string, path: string, [key: string]: any}>} Normalised repo entries.
+ */
+function normalizeRepos(cfg) {
+  if (!cfg || typeof cfg !== "object") {
+    return [];
+  }
+
+  if (Array.isArray(cfg.repos)) {
+    return cfg.repos.map((repo, index) => ({
+      ...repo,
+      name: repo?.name || repo?.id || repo?.path || `repo${index + 1}`
+    }));
+  }
+
+  if (cfg.repositories && typeof cfg.repositories === "object") {
+    return Object.entries(cfg.repositories).map(([key, repo]) => ({
+      ...repo,
+      name: repo?.name || key
+    }));
+  }
+
+  return [];
+}
+
+/**
  * Runs a shell command synchronously in a given directory.
  * @param {string} cmd - The command to run.
  * @param {string} cwd - The working directory.
@@ -63,4 +92,4 @@ function topoOrder(repos) {
   return ordered;
 }
 
-export { loadConfig, run, topoOrder };
+export { loadConfig, normalizeRepos, run, topoOrder };

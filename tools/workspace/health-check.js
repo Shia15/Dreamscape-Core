@@ -1,4 +1,4 @@
-import { loadConfig } from "./_ws.js";
+import { loadConfig, normalizeRepos } from "./_ws.js";
 import path from "path";
 import fs from "fs";
 import { execSync } from "child_process";
@@ -23,8 +23,8 @@ function hasChanges(repoPath) {
   }
 }
 
-for (const [repoKey, repo] of Object.entries(cfg.repositories)) {
-  const name = repo.name || repoKey;
+for (const repo of normalizeRepos(cfg)) {
+  const name = repo.name;
   const repoPath = path.resolve(root, repo.path);
   const hasGit = fs.existsSync(path.join(repoPath, ".git"));
 

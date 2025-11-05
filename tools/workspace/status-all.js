@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import { execSync } from "child_process";
 import { fileURLToPath } from "url";
-import { loadConfig } from "./_ws.js";
+import { loadConfig, normalizeRepos } from "./_ws.js";
 
 // ESM replacements for __dirname and __filename
 const __filename = fileURLToPath(import.meta.url);
@@ -42,8 +42,8 @@ const col = (s, n) => (s || "").toString().padEnd(n);
 console.log(`${col("Repository", 20)}| ${col("State", 12)}| ${col("Branch", 12)}| Changes`);
 console.log(`${"-".repeat(20)}|${"-".repeat(13)}|${"-".repeat(13)}|--------`);
 
-for (const [repoKey, repo] of Object.entries(cfg.repositories)) {
-  const name = repo.name || repoKey;
+for (const repo of normalizeRepos(cfg)) {
+  const name = repo.name;
   const repoPath = path.resolve(root, repo.path);
   const cloned = fs.existsSync(path.join(repoPath, ".git"));
   const state = cloned ? "Cloned" : "Not Cloned";
