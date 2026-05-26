@@ -2,7 +2,7 @@
 // intentRouter.ts – Routes input based on dominant mood signal 🧭
 
 import { evaluateMood } from "../emotion/moodLogic.js"
-import { Mood } from "../emotion/moodTypes"
+import { Mood } from "../emotion/moodTypes.js"
 import { agentRegistry } from "../agents/index.js"
 
 /**
@@ -12,10 +12,11 @@ import { agentRegistry } from "../agents/index.js"
  * @param moodWeights - A partial mood weight profile (e.g. { calm: 0.3, frustrated: 0.7 }).
  *                      Used to determine the dominant emotional context.
  * 
- * @returns Output of the matched agent’s execution, or a fallback message if no agent matches.
+ * @returns Output of the matched agent's execution, or a fallback message if no agent matches.
  */
 export function routeIntent(input: string, moodWeights: Partial<Record<Mood, number>>): string {
   // 🧠 Evaluate dominant mood from emotional weight profile
+  // Uses optimized O(n) max search instead of sorting
   const dominantMood = evaluateMood(moodWeights)
 
   // 🎯 Match mood to corresponding Egg Agent

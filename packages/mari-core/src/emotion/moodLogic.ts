@@ -1,8 +1,12 @@
-// moodLogic.ts – Advanced mood evaluation with memory and momentum tracking
+// moodLogic.ts – Optimized mood evaluation with caching and O(n) max search
 
-import { Mood } from "./moodTypes"
+import { Mood } from "./moodTypes.js"
+import { CircularBuffer } from "../utils/CircularBuffer.js"
+import { Memoizer } from "../utils/Memoizer.js"
 
 const DEFAULT_MOOD: Mood = "clarity"
+const MAX_MOOD_HISTORY = 1000
+const MOOD_MEMOIZER_TTL = 5000 // 5 second cache
 
 interface MoodHistoryEntry {
   timestamp: number
@@ -10,10 +14,36 @@ interface MoodHistoryEntry {
   weights: Partial<Record<Mood, number>>
 }
 
-let moodHistory: MoodHistoryEntry[] = []
+// Bounded history with circular buffer
+const moodHistory = new CircularBuffer<MoodHistoryEntry>(MAX_MOOD_HISTORY)
+
+// Memoizer for mood momentum calculations
+const moodMemoizer = new Memoizer(MOOD_MEMOIZER_TTL)
 
 /**
- * Evaluates the dominant mood from weights, and optionally logs memory.
+ * Find dominant mood using O(n) max search instead of O(n log n) sorting.
+ * Much faster than sorting the entire array just to get the maximum.
+ */
+function findDominantMood(
+  weights: Partial<Record<Mood, number>>
+): Mood {
+  const entries = Object.entries(weights) as [Mood, number][]
+  if (entries.length === 0) return DEFAULT_MOOD
+
+  // O(n) linear scan to find max (instead of O(n log n) sort)
+  let max: [Mood, number] = entries[0]
+  for (let i = 1; i < entries.length; i++) {
+    if (entries[i][1] > max[1]) {
+      max = entries[i]
+    }
+  }
+
+  return max[0]
+}
+
+/**
+ * Evaluates the dominant mood from weights with optional history logging.
+ * Uses O(n) max search for efficiency.
  * @param weights - Partial mood score input.
  * @param logToMemory - Whether to store the evaluation in mood history.
  */
@@ -21,11 +51,7 @@ export function evaluateMood(
   weights: Partial<Record<Mood, number>>,
   logToMemory: boolean = true
 ): Mood {
-  const entries = Object.entries(weights) as [Mood, number][]
-  if (entries.length === 0) return DEFAULT_MOOD
-
-  entries.sort((a, b) => b[1] - a[1])
-  const dominantMood = entries[0][0]
+  const dominantMood = findDominantMood(weights)
 
   if (logToMemory) {
     moodHistory.push({
@@ -42,30 +68,59 @@ export function evaluateMood(
  * Retrieves the last dominant mood in memory.
  */
 export function getLastMood(): Mood {
-  if (moodHistory.length === 0) return DEFAULT_MOOD
-  return moodHistory[moodHistory.length - 1].mood
+  const last = moodHistory.peek()
+  return last ? last.mood : DEFAULT_MOOD
 }
 
 /**
- * Calculates mood momentum — whether the mood is intensifying, changing, or steady.
- * Looks at the last 3 entries.
+ * Calculates mood momentum with memoization.
+ * Whether the mood is intensifying, changing, or steady.
+ * Caches result for 5 seconds to avoid recalculation.
  */
 export function getMoodMomentum(): string {
-  if (moodHistory.length < 2) return "insufficient data"
+  // Use memoization to cache expensive calculation
+  return moodMemoizer.memoize(
+    "getMoodMomentum",
+    [], // No arguments for this calculation
+    () => {
+      const history = moodHistory.getLast(3)
+      if (history.length < 2) return "insufficient data"
 
-  const recent = moodHistory.slice(-3)
-  const dominantMoods = recent.map(entry => entry.mood)
+      const dominantMoods = history.map(entry => entry.mood)
 
-  const allSame = dominantMoods.every(m => m === dominantMoods[0])
-  if (allSame) return `steady (${dominantMoods[0]})`
+      // Check if all moods are the same
+      const allSame = dominantMoods.every(m => m === dominantMoods[0])
+      if (allSame) return `steady (${dominantMoods[0]})`
 
-  const changed = [...new Set(dominantMoods)]
-  return `shifting (${changed.join(" → ")})`
+      // Show the mood shift pattern
+      const changed = [...new Set(dominantMoods)]
+      return `shifting (${changed.join(" → ")})`
+    }
+  )
+}
+
+/**
+ * Get mood history statistics.
+ */
+export function getMoodStats(): {
+  totalRecorded: number
+  maxCapacity: number
+  currentMood: Mood
+  recentMoods: Mood[]
+} {
+  const history = moodHistory.getAll()
+  return {
+    totalRecorded: history.length,
+    maxCapacity: MAX_MOOD_HISTORY,
+    currentMood: getLastMood(),
+    recentMoods: history.slice(-10).map(h => h.mood)
+  }
 }
 
 /**
  * Clears the stored mood memory (for reset or testing).
  */
 export function clearMoodHistory(): void {
-  moodHistory = []
+  moodHistory.clear()
+  moodMemoizer.clear()
 }
