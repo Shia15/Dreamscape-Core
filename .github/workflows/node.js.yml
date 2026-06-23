@@ -12,7 +12,7 @@ jobs:
     steps:
       # Pin actions to @v4 now; later you can replace @v4 with a commit SHA
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Node 18.20.8 (with npm cache)
         uses: actions/setup-node@v4
@@ -41,7 +41,7 @@ jobs:
       pull-requests: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Block workflow edits without label
         shell: bash
